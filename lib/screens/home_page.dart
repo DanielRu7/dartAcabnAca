@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final lista = eventosMostrados;
+    final ancho = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(
@@ -127,10 +128,11 @@ class _HomePageState extends State<HomePage> {
                         : GridView.builder(
                             padding: const EdgeInsets.only(bottom: 20),
                             itemCount: lista.length,
-                            // Las columnas se calculan solas según el ancho
+                            // Menos de 600 px (celular): 1 columna.
+                            // Pantallas mayores: columnas de hasta 340 px.
                             gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 340,
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: ancho < 600 ? 600 : 340,
                               mainAxisExtent: 390,
                               crossAxisSpacing: 14,
                               mainAxisSpacing: 14,
